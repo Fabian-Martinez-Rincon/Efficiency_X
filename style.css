@@ -14,4 +14,52 @@ section{
     justify-content: center;
     flex-direction: column;
     background-color: rgb(36, 36, 36);
+    padding: 50px 0;
+}
+.container{ 
+    width: 90%;
+    max-width: 600px;
+    margin: 0;
+    height: 100%;
+}
+.title{
+    color: beige;
+    font-size: 40px;
+    text-align: center;
+    align-items: center;
+    
+}
+form{
+    width: 100%;
+    align-self: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+}
+form .input{
+    width: 100%;
+}
+form textarea,
+form #output{
+    width: 80%;
+    min-height: 200px;
+    background-color: rgb(65, 65, 65);
+    text-align: left;
+    padding: 10px;
+    font-size: 18px;
+    color:antiquewhite;
+}
+button{
+    outline: none;
+    border: none;
+    background-color: white;
+    color: black;
+    padding: 10px 40px;
+    display: inline-block;
+    font-size: 20px;
+    font-family: 'montserrat';
+    margin: 20px 0;
+    cursor: pointer;
 }
