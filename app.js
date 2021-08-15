@@ -27,17 +27,38 @@ function convert(type, codigo) {
 function Calculo_Fisica(codigo) {
     var memoria_fisica = "";
     var cantidad_integer = 0;
-    /*var cantidad_char = 0;
+    var cantidad_char = 0;
     var cantidad_real = 0;
     var cantidad_boolean = 0;
     var cantidad_string = 0;
     var cantidad_puntero = 0;
-    var tota = 0;*/
+    var total = 0;
     const myRe = /integer;/gi; //Tengo que sacar los patrones para que solo calcule las variables de la funcion principal
     memoria_fisica = codigo.match(myRe);
     cantidad_integer = (memoria_fisica.length) * 6;
+
+    const myRe = /char;/gi;
+    memoria_fisica = codigo.match(myRe);
+    cantidad_char = (memoria_fisica.length) * 1;
+
+    const myRe = /real;/gi;
+    memoria_fisica = codigo.match(myRe);
+    cantidad_real = (memoria_fisica.length) * 8;
+
+    const myRe = /boolean;/gi;
+    memoria_fisica = codigo.match(myRe);
+    cantidad_boolean = (memoria_fisica.length) * 1;
+
+    const myRe = /string;/gi;
+    memoria_fisica = codigo.match(myRe);
+    cantidad_string = (memoria_fisica.length) * 6;
+
+    const myRe = /puntero;/gi;
+    memoria_fisica = codigo.match(myRe);
+    cantidad_puntero = (memoria_fisica.length) * 4;
     
+    total = cantidad_integer + cantidad_char + cantidad_real + cantidad_boolean + cantidad_string + cantidad_puntero;
     
-    return cantidad_integer;
+    return total;
 }
  
