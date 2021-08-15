@@ -1,7 +1,6 @@
 const formEl = document.querySelector("form");
 const outputEl = document.querySelector("#output");
 const inputEl = document.querySelector("#input");
-const title = document.querySelector(".title");
 const copy = document.querySelector(".copy");
 
 formEl.addEventListener("submit", (e) => {
@@ -15,25 +14,9 @@ formEl.addEventListener("submit", (e) => {
 
 
 function convert(type, inputValue) {
-  let output = "";
-  if (type === "binary") {
-    output = binaryToText(inputValue);
-    console.log(output);
-  } else if (type === "text") {
-    output = textToBinary(inputValue);
-  }
-  outputEl.innerText = output;
-}
-
-function binaryToText(input) {
-  let output = "";
-  output = input
-    .split(" ")
-    .map((number) => parseInt(number, 2))
-    .map((number) => String.fromCharCode(number))
-    .join("");
-  console.log(input);
-  return output;
+    let output = "";
+    output = textToBinary(inputValue); //Paso el texto y Calculo las memorias y tiempo
+    outputEl.innerText =// output;//Imprimo el consumo de los datos
 }
 
 function textToBinary(input) {
@@ -45,26 +28,4 @@ function textToBinary(input) {
     .join(" ");
 
   return output;
-}
-
-copy.addEventListener("click", (e) => {
-  copyOutput();
-  e.target.innerHTML = `<ion-icon name="clipboard"></ion-icon>`;
-
-  setTimeout(() => {
-    e.target.innerHTML = `<ion-icon name="clipboard-outline"></ion-icon>`;
-  }, 1000);
-});
-
-function copyOutput() {
-  const textarea = document.createElement("textarea");
-  textarea.setAttribute("readonly", "");
-  textarea.style.position = "absolute";
-  textarea.style.top = "0";
-  textarea.value = outputEl.innerText;
-  document.body.appendChild(textarea);
-  textarea.select();
-  textarea.setSelectionRange(0, 99999);
-  document.execCommand("copy");
-  document.body.removeChild(textarea);
 }
