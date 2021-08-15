@@ -13,32 +13,31 @@ formEl.addEventListener("submit", (e) => {
 
 
 
-function convert(type, inputValue) {
-    let output = "";
-    output = textToBinary(inputValue); //Paso el texto y Calculo las memorias y tiempo
-    //outputEl.innerText = output;//Imprimo el consumo de los datos
-    outputEl.innerText = 'Memorias estatica: ' + output.length + '\n Memoria dinamica: ' + '\n Tiempo:';
+function convert(type, codigo) {
+    let mem_fisica = "";
+    mem_fisica = Calculo_Fisica(codigo); //Paso el texto y Calculo las memorias y tiempo
+    /*let mem_dinamica = "";
+    mem_dinamica = Calculo_Dinamica(codigo);
+    let tiempo = "";
+    tiempo = Calculo_Tiempo(codigo);*/
+    outputEl.innerText = 'Memorias estatica: ' + mem_fisica +" bytes"+ '\n Memoria dinamica: ' + '\n Tiempo:';
     
 }
 
-/*function textToBinary(input) {
-    let output = "";
-    //var myRe = /integer/;
-    //var output = myRe.exec('integer');
-    output = input;
-    return output;
-}*/
-function textToBinary(input) {
-    var output = "";
+function Calculo_Fisica(codigo) {
+    var memoria_fisica = "";
+    var cantidad_integer = 0;
+    /*var cantidad_char = 0;
+    var cantidad_real = 0;
+    var cantidad_boolean = 0;
+    var cantidad_string = 0;
+    var cantidad_puntero = 0;
+    var tota = 0;*/
     const myRe = /integer/gi;
+    memoria_fisica = codigo.match(myRe);
+    cantidad_integer = (memoria_fisica.length) * 6;
     
-    output = input.match(myRe);
     
-    console.log(output);
-    console.log(output.length);
-    
-    //console.log(myRe.search("qweeqw integer integer"));
-    
-    return output;
+    return cantidad_integer;
 }
  
