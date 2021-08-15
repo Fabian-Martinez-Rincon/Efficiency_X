@@ -23,7 +23,7 @@ section{
     height: 100%;
 }
 .title{
-    color: beige;
+    color: rgba(131, 131, 131, 0.404);
     font-size: 40px;
     text-align: center;
     align-items: center;
@@ -49,7 +49,7 @@ form #output{
     text-align: left;
     padding: 10px;
     font-size: 18px;
-    color:antiquewhite;
+    color:rgb(253, 253, 253);
 }
 button{
     outline: none;
