@@ -33,7 +33,7 @@ function Calculo_Fisica(codigo) {
     var cantidad_string = 0;
     var cantidad_puntero = 0;
     var tota = 0;*/
-    const myRe = /integer/gi;
+    const myRe = /integer;/gi; //Tengo que sacar los patrones para que solo calcule las variables de la funcion principal
     memoria_fisica = codigo.match(myRe);
     cantidad_integer = (memoria_fisica.length) * 6;
     
