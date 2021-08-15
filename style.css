@@ -1,57 +1,56 @@
-*{
+* {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-}
-html{
-    font-family: 'montserrat';
-}
-section{
+  }
+  html {
+    font-family: "montserrat";
+  }
+  section {
     min-height: 100vh;
     width: 100%;
     text-align: center;
     display: flex;
     justify-content: center;
+    align-items: center;
     flex-direction: column;
     background-color: rgb(36, 36, 36);
     padding: 50px 0;
-}
-.container{ 
+  }
+  .container {
     width: 90%;
     max-width: 600px;
-    margin: 0;
+    margin: 0 auto;
     height: 100%;
-}
-.title{
-    color: rgba(131, 131, 131, 0.404);
+  }
+  .title {
+    color: whitesmoke;
     font-size: 40px;
     text-align: center;
-    align-items: center;
-    
-}
-form{
+  }
+  form {
     width: 100%;
-    align-self: center;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     position: relative;
-}
-form .input{
+  }
+  
+  form .input {
     width: 100%;
-}
-form textarea,
-form #output{
+  }
+  form textarea,
+  form #output {
     width: 80%;
     min-height: 200px;
     background-color: rgb(65, 65, 65);
     text-align: left;
     padding: 10px;
     font-size: 18px;
-    color:rgb(253, 253, 253);
-}
-button{
+    color: whitesmoke;
+  }
+  button {
     outline: none;
     border: none;
     background-color: white;
@@ -59,7 +58,18 @@ button{
     padding: 10px 40px;
     display: inline-block;
     font-size: 20px;
-    font-family: 'montserrat';
+    font-family: "montserrat";
     margin: 20px 0;
     cursor: pointer;
-}
+  }
+  .copy {
+    position: absolute;
+    font-size: 30px;
+    color: white;
+    bottom: 1%;
+    right: 11%;
+    cursor: pointer;
+  }
+  ion-icon {
+    pointer-events: none;
+  }
