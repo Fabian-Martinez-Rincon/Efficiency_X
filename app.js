@@ -17,7 +17,7 @@ function convert(type, inputValue) {
     let output = "";
     output = textToBinary(inputValue); //Paso el texto y Calculo las memorias y tiempo
     //outputEl.innerText = output;//Imprimo el consumo de los datos
-    outputEl.innerText = 'Memorias estatica: ' + output + '\n Memoria dinamica: ' + '\n Tiempo:';
+    outputEl.innerText = 'Memorias estatica: ' + output.length + '\n Memoria dinamica: ' + '\n Tiempo:';
     
 }
 
@@ -30,11 +30,12 @@ function convert(type, inputValue) {
 }*/
 function textToBinary(input) {
     var output = "";
-    const myRe = /integer/;
-    var nuevo = "";
-    output = input.split(myRe);
+    const myRe = /integer/gi;
     
+    output = input.match(myRe);
     
+    console.log(output);
+    console.log(output.length);
     
     //console.log(myRe.search("qweeqw integer integer"));
     
