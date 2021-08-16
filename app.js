@@ -40,9 +40,16 @@ function Calculo_Fisica(codigo) {
         
         punt.test(memoria_fisica[0]);//Esta linea no se porque va a aca, pero hace que funcione todo(no tocas :c)
        
-        if(punt.test(memoria_fisica[i])){
+        if(punt.test(memoria_fisica[i])){ //Si es puntero sumo 4bytes que es para todos igual
             total = total + 4;
-            console.log(i);
+            console.log("puntero");
+        }
+        else {
+            if(/integer/gim.test(memoria_fisica[i])){ total = total + 6; console.log("integer");}
+            if(/char/gim.test(memoria_fisica[i])){ total = total + 1; console.log("char");}
+            if(/real/gim.test(memoria_fisica[i])){ total = total + 8; console.log("real");}
+            if(/boolean/gim.test(memoria_fisica[i])){ total = total + 1; console.log("boolean");}
+            
         }
         
     }
