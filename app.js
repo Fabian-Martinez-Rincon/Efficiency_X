@@ -26,13 +26,30 @@ function convert(type, codigo) {
 
 function Calculo_Fisica(codigo) {
     var memoria_fisica = "";
-    var cantidad_integer = 0;
     
-    const myRe = /(\w+\s?\:\s?)[^]?(integer|char|real|boolean|string);/gi; 
+
+    const myRe = /(\:\s?)[.^]?(integer|char|real|boolean|string);/gim;
+
+    const punt =  /[-^](integer|char|real|boolean|string);/gim;
+
     memoria_fisica = codigo.match(myRe);
-    cantidad_integer = (memoria_fisica.length) * 6;
     console.log(memoria_fisica);
+    console.log(memoria_fisica.length);
+
+    for (var i = 0; i < memoria_fisica.length;i++){
+        
+        probarEntrada(myRe,memoria_fisica[i])
+    }
     
-    return cantidad_integer;
+    return memoria_fisica;
 }
- 
+
+function probarEntrada(regexp, cadena){
+    var subcadena;
+    if (regexp.test(cadena)) {
+      subcadena = ' contiene ';
+    } else {
+      subcadena = ' no contiene ';
+    }
+    console.log(cadena + subcadena );
+  }
