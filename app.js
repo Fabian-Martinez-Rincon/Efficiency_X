@@ -26,8 +26,7 @@ function convert(type, codigo) {
 
 function Calculo_Fisica(codigo) {
     var memoria_fisica = "";
-    
-
+    var total = 0;
     const myRe = /(\:\s?)[.^]?(integer|char|real|boolean|string);/gim;
 
     const punt =  /[-^](integer|char|real|boolean|string);/gim;
@@ -36,20 +35,18 @@ function Calculo_Fisica(codigo) {
     console.log(memoria_fisica);
     console.log(memoria_fisica.length);
 
+
     for (var i = 0; i < memoria_fisica.length;i++){
         
-        probarEntrada(myRe,memoria_fisica[i])
+        punt.test(memoria_fisica[0]);//Esta linea no se porque va a aca, pero hace que funcione todo(no tocas :c)
+       
+        if(punt.test(memoria_fisica[i])){
+            total = total + 4;
+            console.log(i);
+        }
+        
     }
     
-    return memoria_fisica;
+    return total;
 }
 
-function probarEntrada(regexp, cadena){
-    var subcadena;
-    if (regexp.test(cadena)) {
-      subcadena = ' contiene ';
-    } else {
-      subcadena = ' no contiene ';
-    }
-    console.log(cadena + subcadena );
-  }
