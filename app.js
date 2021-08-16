@@ -36,7 +36,7 @@ function Calculo_Fisica(codigo) {
     console.log(memoria_fisica.length);
 
 
-    for (var i = 0; i < memoria_fisica.length;i++){
+    for (var i = 0; i < memoria_fisica.length;i++){//Una vez que tengo los datos filtrados, hago todas las operaciones
         
         punt.test(memoria_fisica[0]);//Esta linea no se porque va a aca, pero hace que funcione todo(no tocas :c)
        
@@ -45,10 +45,10 @@ function Calculo_Fisica(codigo) {
             console.log("puntero");
         }
         else {
-            if(/integer/gim.test(memoria_fisica[i])){ total = total + 6; console.log("integer");}
-            if(/char/gim.test(memoria_fisica[i])){ total = total + 1; console.log("char");}
-            if(/real/gim.test(memoria_fisica[i])){ total = total + 8; console.log("real");}
-            if(/boolean/gim.test(memoria_fisica[i])){ total = total + 1; console.log("boolean");}
+            if(/integer/gim.test(memoria_fisica[i])){ total = total + 6; console.log("integer");} // 6 bytes
+            if(/char/gim.test(memoria_fisica[i])){ total = total + 1; console.log("char");} // 1 byte
+            if(/real/gim.test(memoria_fisica[i])){ total = total + 8; console.log("real");} // 8 bytes
+            if(/boolean/gim.test(memoria_fisica[i])){ total = total + 1; console.log("boolean");} // 1 bytes
             
         }
         
