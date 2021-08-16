@@ -4,6 +4,8 @@
 <img src="Img/2.png"/>
  </div>
 
+<h1 align="center"> Diagrama </h1>
+
 <div align="center">
 <img src="Img/1.png"/>
  </div>
