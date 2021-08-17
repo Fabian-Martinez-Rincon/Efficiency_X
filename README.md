@@ -91,3 +91,5 @@ end.
 [Operaciones con expresiones regulares](https://developer.mozilla.org/es/docs/Web/JavaScript/Guide/Regular_Expressions).
 
 [Pasar un array a string](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Array/toString).
+
+[Web de pruebas](https://regexr.com/).
