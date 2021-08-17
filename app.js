@@ -20,7 +20,8 @@ function convert(type, codigo) {
     mem_dinamica = Calculo_Dinamica(codigo);
     let tiempo = "";
     tiempo = Calculo_Tiempo(codigo);*/
-    outputEl.innerText = 'Memorias estatica: ' + mem_fisica +" bytes"+ '\n Memoria dinamica: ' + '\n Tiempo:';
+    outputEl.innerText = mem_fisica;
+    //outputEl.innerText = 'Memorias estatica: ' + mem_fisica +" bytes"+ '\n Memoria dinamica: ' + '\n Tiempo:';
     
 }
 
@@ -31,6 +32,9 @@ function Calculo_Fisica(codigo) {
 
     const punt =  /[-^](integer|char|real|boolean|string);/gim;
 
+    
+    codigo = codigo.replace(/(\r\n|\n|\r|\s)/gm, ""); //Elimino todos los saltos de linea para poder procesar todo mas facil
+    console.log(codigo);
     memoria_fisica = codigo.match(myRe);
     console.log(memoria_fisica);
     console.log(memoria_fisica.length);
@@ -54,6 +58,6 @@ function Calculo_Fisica(codigo) {
         
     }
     
-    return total;
+    return codigo;
 }
 
