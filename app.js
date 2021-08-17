@@ -20,26 +20,38 @@ function convert(type, codigo) {
     mem_dinamica = Calculo_Dinamica(codigo);
     let tiempo = "";
     tiempo = Calculo_Tiempo(codigo);*/
-    outputEl.innerText = mem_fisica;
-    //outputEl.innerText = 'Memorias estatica: ' + mem_fisica +" bytes"+ '\n Memoria dinamica: ' + '\n Tiempo:';
+    //outputEl.innerText = mem_fisica;
+    outputEl.innerText = 'Memorias estatica: ' + mem_fisica +" bytes"+ '\n Memoria dinamica: ' + '\n Tiempo:';
     
 }
 
 function Calculo_Fisica(codigo) {
     var memoria_fisica = "";
     var total = 0;
-    const myRe = /(\:\s?)[.^]?(integer|char|real|boolean|string);/gim;
+    var filtro = "program Problema; type cadena35 = string[35]; empleado = record dirCorreo: cadena35; edad: integer; sueldo:real; end: punt = empleado^; vector = array [1..500] of punt; lista = ^nodo; nodo = record dato: empleado; sig: lista; end; var caracter:char; numero: integer; numero : INTEGER; r:real; bool:boolean; puntero: ^integer; puntero2:^char; puntero:^real; puntero:^boolean; begin l:=nil; for i:=1 to 10 to begin read(emp.dirCorreo, emp.edad, emp.sueldo); if (emp.edad < 40) and (emp.sueldo < 40000) then exp.sueldo:= exp.sueldo + 7000; new(aux); aux^.dato := emp; aux^.sig: := l; l := aux; end; end.";
+    
+    const myRe = /(\:\s?)[.^]?(integer|char|real|boolean|string);/gim; //Extraemos todos los tipos de datos
 
-    const punt =  /[-^](integer|char|real|boolean|string);/gim;
+    const principal =/var.+(;\sbegin)/; //Algoritmos del programa principal
+
+    const punt =  /[-^](integer|char|real|boolean|string);/gim; //Para filtrar punteros
 
     
-    codigo = codigo.replace(/(\r\n|\n|\r|\s)/gm, ""); //Elimino todos los saltos de linea para poder procesar todo mas facil
-    console.log(codigo);
-    memoria_fisica = codigo.match(myRe);
+    codigo2 = codigo.replace(/(\r\n|\n|\r|\s)/gm, " "); //Elimino todos los saltos de linea y tabuladores para poder procesar todo mas facil
+
+    codigo2 = codigo2.replace(/\s+/g, ' ').trim(); //Como el filtro anterior no funcionaba para la consola, se me ocurrio meter otro filtro que encontre 
+    
+    console.log(codigo2);
+
+    codigo2 = codigo2.match(principal);//Lo convierto en arreglo con el texto (porque no queda de otra)
+
+    codigo2=codigo2.toString();
+    
+    memoria_fisica = codigo2.match(myRe); //Hago otro filtro sobre el texto ya recortado del programa principal
+
     console.log(memoria_fisica);
-    console.log(memoria_fisica.length);
-
-
+    
+    
     for (var i = 0; i < memoria_fisica.length;i++){//Una vez que tengo los datos filtrados, hago todas las operaciones
         
         punt.test(memoria_fisica[0]);//Esta linea no se porque va a aca, pero hace que funcione todo(no tocas :c)
@@ -58,6 +70,6 @@ function Calculo_Fisica(codigo) {
         
     }
     
-    return codigo;
+    return total;
 }
 
