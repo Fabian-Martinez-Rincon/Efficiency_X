@@ -85,3 +85,6 @@ end.
 
 ### Fuentes.
 [Eliminar saltos de linea](https://www.it-swarm-es.com/es/javascript/como-eliminar-todos-los-saltos-de-linea-de-una-cadena/1066967721/)
+[Expresiones regulares basicas](https://www.youtube.com/watch?v=KELZuuVPPT4)
+[Operaciones con expresiones regulares](https://developer.mozilla.org/es/docs/Web/JavaScript/Guide/Regular_Expressions)
+[Pasar un array a string](https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Array/toString)
