@@ -78,6 +78,47 @@ end.
 
 ![image](https://user-images.githubusercontent.com/55964635/129676115-ea422097-595c-4da9-82bf-172e33360657.png)
 
+## Pruebas mas complejas.
+
+```Pascal
+program Problema;
+type
+  cadena35 = string[35];
+  empleado = record
+    dirCorreo: cadena35;
+    edad: integer;
+    sueldo:real;
+  end:
+  
+  punt = empleado^;
+  vector = array [1..500] of punt;
+  
+  lista = ^nodo;
+  nodo = record
+    dato: empleado;
+    sig: lista;
+  end;
+  
+var
+  v:vector;
+  l,aux:lista;
+  emp:empleado;
+  i:integer;
+begin
+  l:=nil;
+  for i:=1 to 10 to 
+  begin
+    read(emp.dirCorreo, emp.edad, emp.sueldo);
+    if (emp.edad < 40) and (emp.sueldo < 40000) then
+      exp.sueldo:= exp.sueldo + 7000;
+    new(aux); 
+    aux^.dato := emp;
+    aux^.sig: := l;
+    l := aux;    
+  end;
+end.
+  
+```  
 
 ### Eliminamos todos los espacios para trabajar de forma mas facil
 
