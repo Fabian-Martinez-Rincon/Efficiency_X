@@ -78,7 +78,7 @@ end.
 
 ![image](https://user-images.githubusercontent.com/55964635/129676115-ea422097-595c-4da9-82bf-172e33360657.png)
 
-## Pruebas mas complejas.
+## Agregando strings.
 
 ```Pascal
 program Problema;
