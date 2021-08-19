@@ -27,3 +27,5 @@ Conjuntos de Caracteres
 Grupos
 ( )     - Grupo
 |       - Uno u otro
+
+|begin$
