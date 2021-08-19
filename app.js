@@ -20,7 +20,7 @@ function convert( codigo) {
 }
 //___________________________________________________________________________________________
 function Calculo_Fisica(codigo) {
-    var memoria_fisica = "";
+
     var total = 0;
     var variable = "";
     var valor=0;
@@ -31,34 +31,38 @@ function Calculo_Fisica(codigo) {
     console.log("Fax "+ cadena);
 
     console.log(cadena[1]);
-    total = CalculoF_Principal(codigo,memoria_fisica,total,cadena);//Calculo lo declarado en el programa principal
+    total = CalculoF_Principal(codigo,total,cadena);//Calculo lo declarado en el programa principal
     
     return total;
 }
 //___________________________________________________________________________________________
-function CalculoF_Principal(codigo,memoria_fisica,total,cadena) {
-
+function CalculoF_Principal(codigo,total,cadena) {
+    var memoria_fisica = codigo;
     var codigo2 = codigo;
 
-    const myRe = "(\:\s?)[.^]?(integer|char|real|boolean|string|"; //Extraemos todos los tipos de datos
+    const myRe = "(integer|char|real|boolean|string|"+cadena[0]+")"; //Extraemos todos los tipos de datos
 
-    var cosa = "";
-    cosa = new RegExp(myRe+cadena[0]+")","gim");
+    let cosa = new RegExp(myRe,"gim");
     console.log(cosa);
     const principal =/var.+(;\sbegin)/; //Algoritmos del programa principal
 
     const punt =  /[-^](integer|char|real|boolean|string);/gim; //Para filtrar punteros
 
+    console.log(cosa);
+
+
+    codigo2 = codigo.replace(/(\r\n|\n|\r|\s)/gm, " ");
     codigo2 = codigo2.replace(/\s+/g, ' ').trim(); //Como el filtro anterior no funcionaba para la consola, se me ocurrio meter otro filtro que encontre :c.
     
     codigo2 = codigo2.match(principal);//Separo todo el texto del programa principal
 
     codigo2=codigo2.toString();//Lo convierto en arreglo con el texto (porque no queda de otra)
-    console.log(codigo2);
+    console.log("Codigo: "+codigo2);
+    
     memoria_fisica = codigo2.match(cosa); //Hago otro filtro sobre el texto ya recortado del programa principal
     
 
-    console.log(memoria_fisica);
+    console.log("memoria fisica:" + memoria_fisica);
     
     for (var i = 0; i < memoria_fisica.length;i++){//Una vez que tengo los datos filtrados, hago todas las operaciones
         
