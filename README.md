@@ -84,38 +84,11 @@ end.
 program Problema;
 type
   cadena35 = string[35];
-  empleado = record
-    dirCorreo: cadena35;
-    edad: integer;
-    sueldo:real;
-  end:
-  
-  punt = empleado^;
-  vector = array [1..500] of punt;
-  
-  lista = ^nodo;
-  nodo = record
-    dato: empleado;
-    sig: lista;
-  end;
-  
 var
-  v:vector;
-  l,aux:lista;
-  emp:empleado;
+  nombre:cadena35;
   i:integer;
 begin
-  l:=nil;
-  for i:=1 to 10 to 
-  begin
-    read(emp.dirCorreo, emp.edad, emp.sueldo);
-    if (emp.edad < 40) and (emp.sueldo < 40000) then
-      exp.sueldo:= exp.sueldo + 7000;
-    new(aux); 
-    aux^.dato := emp;
-    aux^.sig: := l;
-    l := aux;    
-  end;
+
 end.
   
 ```  
