@@ -22,18 +22,29 @@ function convert( codigo) {
 function Calculo_Fisica(codigo) {
     var memoria_fisica = "";
     var total = 0;
-    Datos_Type = Calculo_Type(codigo);
-    total = CalculoF_Principal(codigo,memoria_fisica,total);//Calculo lo declarado en el programa principal
+    var variable = "";
+    var valor=0;
+    const Datos_Type  = 0;
+    
+    var cadena=Datos_Type [variable,valor] = Calculo_Type(codigo);
+    
+    console.log("Fax "+ cadena);
+
+    console.log(cadena[1]);
+    total = CalculoF_Principal(codigo,memoria_fisica,total,cadena);//Calculo lo declarado en el programa principal
     
     return total;
 }
 //___________________________________________________________________________________________
-function CalculoF_Principal(codigo,memoria_fisica,total) {
+function CalculoF_Principal(codigo,memoria_fisica,total,cadena) {
 
     var codigo2 = codigo;
 
-    const myRe = /(\:\s?)[.^]?(integer|char|real|boolean|string);/gim; //Extraemos todos los tipos de datos
+    const myRe = "(\:\s?)[.^]?(integer|char|real|boolean|string|"; //Extraemos todos los tipos de datos
 
+    var cosa = "";
+    cosa = new RegExp(myRe+cadena[0]+")","gim");
+    console.log(cosa);
     const principal =/var.+(;\sbegin)/; //Algoritmos del programa principal
 
     const punt =  /[-^](integer|char|real|boolean|string);/gim; //Para filtrar punteros
@@ -44,22 +55,25 @@ function CalculoF_Principal(codigo,memoria_fisica,total) {
 
     codigo2=codigo2.toString();//Lo convierto en arreglo con el texto (porque no queda de otra)
     console.log(codigo2);
-    memoria_fisica = codigo2.match(myRe); //Hago otro filtro sobre el texto ya recortado del programa principal
+    memoria_fisica = codigo2.match(cosa); //Hago otro filtro sobre el texto ya recortado del programa principal
+    
 
+    console.log(memoria_fisica);
+    
     for (var i = 0; i < memoria_fisica.length;i++){//Una vez que tengo los datos filtrados, hago todas las operaciones
         
         punt.test(memoria_fisica[0]);//Esta linea no se porque va a aca, pero hace que funcione todo(no tocas :c)
-       
+        
         if(punt.test(memoria_fisica[i])){ //Si es puntero sumo 4bytes que es para todos igual
             total = total + 4;
             console.log("puntero");
         }
         else {
             if(/integer/gim.test(memoria_fisica[i])){ total = total + 6; console.log("integer");} // 6 bytes
-            if(/char/gim.test(memoria_fisica[i])){ total = total + 1; console.log("char");} // 1 byte
-            if(/real/gim.test(memoria_fisica[i])){ total = total + 8; console.log("real");} // 8 bytes
-            if(/boolean/gim.test(memoria_fisica[i])){ total = total + 1; console.log("boolean");} // 1 bytes
-            
+            else if(/char/gim.test(memoria_fisica[i])){ total = total + 1; console.log("char");} // 1 byte
+            else if(/real/gim.test(memoria_fisica[i])){ total = total + 8; console.log("real");} // 8 bytes
+            else if(/boolean/gim.test(memoria_fisica[i])){ total = total + 1; console.log("boolean");} // 1 bytes
+            else if(cosa.test(memoria_fisica[i])){ total = total + cadena[1] + 1; console.log("cadena");} // Longitud + 1 bytes
         }
         
     }
@@ -68,9 +82,9 @@ function CalculoF_Principal(codigo,memoria_fisica,total) {
 //___________________________________________________________________________________________
 function Calculo_Type(codigo){
     var codigo2 = codigo;
-    var cadenas = /(.+\s[=]\s)(string).+]/gim;
-    var valor = /(string).+[\d]]/gim;
-    var nombre = /\w.+\b(.+)?[=]/g;
+    const cadenas = /(.+\s[=]\s)(string).+]/gim;
+    const valor = /(string).+[\d]]/gim;
+    const nombre = /\w.+\b(.+)?[=]/g;
     var valor_n = 0;
     var variable = codigo2;
 
@@ -80,7 +94,7 @@ function Calculo_Type(codigo){
 
     variable = codigo2.match(nombre);
     variable = variable.toString();
-    variable = variable.replace(/=/g,'');
+    variable = variable.replace(/\s|[=]/g,'');
     console.log(variable);
     
     codigo2 = codigo2.match(valor);
@@ -90,9 +104,10 @@ function Calculo_Type(codigo){
     codigo2 = codigo2.replace(/[^(\d.+\b)]/gim,'');
     console.log(codigo2);
     valor_n = parseInt(codigo2,10);
-    
+
     console.log('nombre: '+variable);
     console.log('Valor: '+valor_n);
     
-    return codigo;
+    
+    return [variable,valor_n];
 }
