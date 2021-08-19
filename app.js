@@ -68,23 +68,31 @@ function CalculoF_Principal(codigo,memoria_fisica,total) {
 //___________________________________________________________________________________________
 function Calculo_Type(codigo){
     var codigo2 = codigo;
-    cadenas = /(.+\s[=]\s)(string).+]/gim;
-    valor = /(string).+[\d]]/gim;
-    
+    var cadenas = /(.+\s[=]\s)(string).+]/gim;
+    var valor = /(string).+[\d]]/gim;
+    var nombre = /\w.+\b(.+)?[=]/g;
+    var valor_n = 0;
+    var variable = codigo2;
+
     codigo2 = codigo.match(cadenas);
     codigo2=codigo2.toString();
     console.log(codigo2);
 
+    variable = codigo2.match(nombre);
+    variable = variable.toString();
+    variable = variable.replace(/=/g,'');
+    console.log(variable);
     
     codigo2 = codigo2.match(valor);
     codigo2=codigo2.toString();
     console.log(codigo2);
 
-    codigo2 = codigo2.match(/\d.+\b/gim);
-    codigo2 = codigo2.toString();
+    codigo2 = codigo2.replace(/[^(\d.+\b)]/gim,'');
     console.log(codigo2);
-    codigo2 = parseInt(codigo2,10);
-    console.log(codigo2);
+    valor_n = parseInt(codigo2,10);
+    
+    console.log('nombre: '+variable);
+    console.log('Valor: '+valor_n);
     
     return codigo;
 }
