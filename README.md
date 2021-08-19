@@ -93,6 +93,9 @@ end.
   
 ```  
 
+![image](https://user-images.githubusercontent.com/55964635/130157012-e8ec5694-ab51-429f-a92e-f9a22aee2860.png)
+
+
 ### Eliminamos todos los espacios para trabajar de forma mas facil
 
 [Website](https://fabian-martinez1.github.io/Efficiency_X/)
