@@ -120,7 +120,7 @@ end.
 ![image](https://user-images.githubusercontent.com/55964635/130160452-cdcb94b5-15f2-4e5f-a1cf-7ad2d31a9757.png)
 
 
-![image](https://user-images.githubusercontent.com/55964635/130157012-e8ec5694-ab51-429f-a92e-f9a22aee2860.png)
+
 
 
 ### Eliminamos todos los espacios para trabajar de forma mas facil
