@@ -84,14 +84,41 @@ end.
 program Problema;
 type
   cadena35 = string[35];
+  empleado = record
+    dirCorreo: cadena35;
+    edad: integer;
+    sueldo:real;
+  end:
+  
+  punt = empleado^;
+  vector = array [1..500] of punt;
+  
+  lista = ^nodo;
+  nodo = record
+    dato: empleado;
+    sig: lista;
+  end;
+  
 var
-  nombre:cadena35;
-  i:integer;
+	caracter:char;
+	numero: integer;
+	numero : INTEGER;
+	r:real;
+	bool:boolean;
+	puntero: ^integer;
+	puntero2:^char;
+	puntero:^real;
+	puntero:^boolean;
+        nombre:cadena35;
 begin
 
+ 
 end.
   
 ```  
+
+![image](https://user-images.githubusercontent.com/55964635/130160452-cdcb94b5-15f2-4e5f-a1cf-7ad2d31a9757.png)
+
 
 ![image](https://user-images.githubusercontent.com/55964635/130157012-e8ec5694-ab51-429f-a92e-f9a22aee2860.png)
 
