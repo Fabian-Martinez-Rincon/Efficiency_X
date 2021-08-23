@@ -115,12 +115,58 @@ begin
  
 end.
   
-```  
+```
+
+
 
 ![image](https://user-images.githubusercontent.com/55964635/130160452-cdcb94b5-15f2-4e5f-a1cf-7ad2d31a9757.png)
 
 
 
+```Pas
+program Problema;
+type
+  cadena35 = string[35];
+  empleado = record
+    dirCorreo: cadena35;
+    edad: integer;
+    sueldo:real;
+  end;
+  
+  punt = ^empleado;
+  vector = array [1..500] of punt;
+  
+  lista = ^nodo;
+  nodo = record
+    dato: empleado;
+    sig: lista;
+  end;
+  
+var
+  v:vector;
+  aux:lista;
+  emp:empleado;
+  i:integer;
+begin
+  l:=nil;
+  for i:=1 to 10 to 
+  begin
+    read(emp.dirCorreo, emp.edad, emp.sueldo);
+    if (emp.edad < 40) and (emp.sueldo < 40000) then
+      exp.sueldo:= exp.sueldo + 7000;
+    new(aux); 
+    aux^.dato := emp;
+    aux^.sig: := l;
+    l := aux;    
+  end;
+end.
+  
+
+```
+
+![image](https://user-images.githubusercontent.com/55964635/130385848-30fa0f2a-5882-4fc2-952c-7a2e68cdfb2c.png)
+
+![image](https://user-images.githubusercontent.com/55964635/130385863-a6361ab6-02de-44b8-9eae-4c57c9b6652d.png)
 
 
 ### Eliminamos todos los espacios para trabajar de forma mas facil
