@@ -284,7 +284,7 @@ function Calculo_Fisica(codigo,nombres,valores) {
                 var contador = 0;
                 while ((memoria_fisica[i] != (nombres[contador]+";"))&(contador < 100)){ //La segunda condicion la puse por las dudas
                     contador = contador+1;
-                    console.log(contador);
+                    
                 }
                 
                 total = total + valores[contador];
