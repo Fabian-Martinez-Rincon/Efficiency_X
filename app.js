@@ -13,7 +13,8 @@ formEl.addEventListener("submit", (e) => {
 
 //___________________________________________________________________________________________
 function convert( codigo) {
-    let mem_fisica = "";
+    let mem_fisica = 0;
+    let mem_dinamica = 0;
     var actual = 0;
     const array_actual = 0 ;
     if (/type/.test(codigo)) {
@@ -32,10 +33,18 @@ function convert( codigo) {
         mem_fisica = Calculo_Fisica2(codigo);
     }
     
-    
+    /*if (/new|dispose/.test(codigo)) {
+        console.clear();
+        console.log('Hay memoria dinamica');
+        mem_dinamica = Calculo_Dinamica(codigo);
+    }
+    else {
+        console.log('No hay memoria dinamica');
+        memoria_fisica = 0; 
+    }*/
 
 
-    outputEl.innerText = 'Memorias estatica: ' + mem_fisica +" bytes"+ '\n Memoria dinamica: ' + '\n Tiempo:';
+    outputEl.innerText = 'Memorias estatica: ' + mem_fisica +" bytes"+ '\n Memoria dinamica: '+mem_dinamica+' bytes' + '\n Tiempo:';
     
 }
 
@@ -250,7 +259,6 @@ function Calculo_Fisica(codigo,nombres,valores) {
     const principal =/var.+(;\sbegin)/; //Algoritmos del programa principal
 
     const punt2 =  "[-^]"+variables_completas; //Para filtrar punteros
-    console.log("aaaaaaaaaaaaaa"+punt2);
     let punt = new RegExp(punt2,"gim");
 
 
@@ -344,3 +352,41 @@ function Calculo_Fisica2(codigo) {
     }
     return total;
 }
+
+//___________________________________________________________________________________________
+function Calculo_Dinamica(codigo){
+    var codigo2 = codigo;
+    var total = 0;
+    var linea = "";
+    const type = /.+\s?/;
+
+    while ((/begin/.test(linea)) != true ) { //Elimino todo hasta el primer begin
+        codigo2 = type.exec(codigo);
+        linea=codigo2[0].toString();        
+        codigo = codigo.replace(linea,'');
+        
+    }
+    console.log("Resultado: "+codigo);
+    
+    while ((/end/.test(linea)) != true ) { //Elimino todo hasta el primer begin
+        codigo2 = type.exec(codigo);
+        linea=codigo2[0].toString();  
+        if (/(.+)?new/.test(linea) ) {
+            total = Calculo_New(linea);
+        }
+        
+        codigo = codigo.replace(linea,'');
+    }
+
+    return total;
+}
+
+//___________________________________________________________________________________________
+function Calculo_New(linea){
+    var basura = /new(.+)?[(]|([).](.+)?[;])/g;
+    linea = linea.replace(basura,'');
+    console.log(linea);
+    return 2;
+}
+
+//___________________________________________________________________________________________
