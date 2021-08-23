@@ -121,7 +121,7 @@ end.
 
 ![image](https://user-images.githubusercontent.com/55964635/130160452-cdcb94b5-15f2-4e5f-a1cf-7ad2d31a9757.png)
 
-
+## Type terminado.
 
 ```Pas
 program Problema;
