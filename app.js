@@ -29,6 +29,7 @@ function convert( codigo) {
     }
     else {
         console.log('No hay type :(');
+        mem_fisica = Calculo_Fisica2(codigo);
     }
     
     
@@ -124,7 +125,7 @@ function calculo_Registro(linea,codigo,nombre_variables,valor_variables){
     var codigo2 = codigo;
     var contador = 0;
     var valor_n = 0;
-    var variable = "calvo";
+    var variable = "";
     
     var variables_completas = "(integer|char|real|boolean|string";
     for (var i = 0; i < nombre_variables.length;i++){
@@ -237,20 +238,20 @@ function Calculo_Fisica(codigo,nombres,valores) {
     var memoria_fisica = codigo;
     var codigo2 = codigo;
     var total = 0;
-    var variables_completas = "(integer|char|real|boolean|string";
+    var variables_completas = "[-^]?((integer|char|real|boolean|string";
     for (var i = 0; i < nombres.length;i++){
         variables_completas = variables_completas + "|" + (nombres[i]);
     }
-    variables_completas = variables_completas + ")";
+    variables_completas = variables_completas + ");)";
     const myRe = variables_completas; //Extraemos todos los tipos de datos
-    console.log("CRUDO"+myRe);    
 
     let cosa = new RegExp(myRe,"gim");
     console.log(cosa);
     const principal =/var.+(;\sbegin)/; //Algoritmos del programa principal
 
-    const punt =  /[-^](integer|char|real|boolean|string);/gim; //Para filtrar punteros
-
+    const punt2 =  "[-^]"+variables_completas; //Para filtrar punteros
+    console.log("aaaaaaaaaaaaaa"+punt2);
+    let punt = new RegExp(punt2,"gim");
 
 
     codigo2 = codigo.replace(/(\r\n|\n|\r|\s)/gm, " ");
@@ -281,12 +282,63 @@ function Calculo_Fisica(codigo,nombres,valores) {
             else if(/boolean/gim.test(memoria_fisica[i])){ total = total + 1; console.log("boolean");} // 1 bytes
             else {
                 var contador = 0;
-                while (memoria_fisica[i] != nombres[contador]){
+                while ((memoria_fisica[i] != (nombres[contador]+";"))&(contador < 100)){ //La segunda condicion la puse por las dudas
                     contador = contador+1;
+                    console.log(contador);
                 }
+                
                 total = total + valores[contador];
                 console.log(nombres[contador]);
             }
+        }
+        
+    }
+    return total;
+}
+
+//___________________________________________________________________________________________
+function Calculo_Fisica2(codigo) {
+    var memoria_fisica = codigo;
+    var codigo2 = codigo;
+    var total = 0;
+    var variables_completas = "[-^]?((integer|char|real|boolean|string));";
+    
+    const myRe = variables_completas; //Extraemos todos los tipos de datos
+    let cosa = new RegExp(myRe,"gim");
+    console.log(cosa);
+    const principal =/var.+(;\sbegin)/; //Algoritmos del programa principal
+
+    const punt =  /[-^](integer|char|real|boolean|string)/; //Para filtrar punteros
+    console.log("aaaaaaaaaaaaaa"+punt);
+   
+
+
+    codigo2 = codigo.replace(/(\r\n|\n|\r|\s)/gm, " ");
+    codigo2 = codigo2.replace(/\s+/g, ' ').trim(); //Como el filtro anterior no funcionaba para la consola, se me ocurrio meter otro filtro que encontre :c.
+    
+    codigo2 = codigo2.match(principal);//Separo todo el texto del programa principal
+
+    codigo2=codigo2.toString();//Lo convierto en arreglo con el texto (porque no queda de otra)
+    console.log("Codigo: "+codigo2);
+    
+    memoria_fisica = codigo2.match(cosa); //Hago otro filtro sobre el texto ya recortado del programa principal
+    
+
+    console.log( memoria_fisica);
+    
+    for (var i = 0; i < memoria_fisica.length;i++){//Una vez que tengo los datos filtrados, hago todas las operaciones
+        
+        punt.test(memoria_fisica[0]);//Esta linea no se porque va a aca, pero hace que funcione todo(no tocas :c)
+        
+        if(punt.test(memoria_fisica[i])){ //Si es puntero sumo 4bytes que es para todos igual
+            total = total + 4;
+            console.log("puntero");
+        }
+        else {
+            if(/integer/gim.test(memoria_fisica[i])){ total = total + 6; console.log("integer");} // 6 bytes
+            else if(/char/gim.test(memoria_fisica[i])){ total = total + 1; console.log("char");} // 1 byte
+            else if(/real/gim.test(memoria_fisica[i])){ total = total + 8; console.log("real");} // 8 bytes
+            else if(/boolean/gim.test(memoria_fisica[i])){ total = total + 1; console.log("boolean");} // 1 bytes
         }
         
     }
