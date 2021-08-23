@@ -261,7 +261,7 @@ function Calculo_Fisica(codigo,nombres,valores) {
     const punt2 =  "[-^]"+variables_completas; //Para filtrar punteros
     let punt = new RegExp(punt2,"gim");
 
-
+    /*
     codigo2 = codigo.replace(/(\r\n|\n|\r|\s)/gm, " ");
     codigo2 = codigo2.replace(/\s+/g, ' ').trim(); //Como el filtro anterior no funcionaba para la consola, se me ocurrio meter otro filtro que encontre :c.
     
@@ -270,33 +270,51 @@ function Calculo_Fisica(codigo,nombres,valores) {
     codigo2=codigo2.toString();//Lo convierto en arreglo con el texto (porque no queda de otra)
     console.log("Codigo: "+codigo2);
     
-    memoria_fisica = codigo2.match(cosa); //Hago otro filtro sobre el texto ya recortado del programa principal
-    
+    memoria_fisica = codigo2.match(cosa); //Hago otro filtro sobre el texto ya recortado del programa principal*/
 
-    console.log("memoria fisica:" + memoria_fisica);
+    var linea = "";
+    const type = /.+\s?/;
+    var codigo2 = codigo;
+    while ((/var/.test(linea)) != true ) { //Elimino todo hasta el primer var
+        codigo2 = type.exec(codigo);
+        linea=codigo2[0].toString();        
+        codigo = codigo.replace(linea,'');
+        
+    }
+    console.log("memoria fisica:" + codigo);
     
-    for (var i = 0; i < memoria_fisica.length;i++){//Una vez que tengo los datos filtrados, hago todas las operaciones
+    while((/begin/.test(linea)) != true){//Una vez que tengo los datos filtrados, hago todas las operaciones
         
-        punt.test(memoria_fisica[0]);//Esta linea no se porque va a aca, pero hace que funcione todo(no tocas :c)
+        codigo2 = type.exec(codigo);
+        linea=codigo2[0].toString();        
+        codigo = codigo.replace(linea,'');
+        console.log("uwu"+linea);
+        punt.test(linea);//Esta linea no se porque va a aca, pero hace que funcione todo(no tocas :c)
         
-        if(punt.test(memoria_fisica[i])){ //Si es puntero sumo 4bytes que es para todos igual
+        if(punt.test(linea)){ //Si es puntero sumo 4bytes que es para todos igual
             total = total + 4;
             console.log("puntero");
         }
         else {
-            if(/integer/gim.test(memoria_fisica[i])){ total = total + 6; console.log("integer");} // 6 bytes
-            else if(/char/gim.test(memoria_fisica[i])){ total = total + 1; console.log("char");} // 1 byte
-            else if(/real/gim.test(memoria_fisica[i])){ total = total + 8; console.log("real");} // 8 bytes
-            else if(/boolean/gim.test(memoria_fisica[i])){ total = total + 1; console.log("boolean");} // 1 bytes
+            if(/integer/gim.test(linea)){ total = total + 6; console.log("integer");} // 6 bytes
+            else if(/char/gim.test(linea)){ total = total + 1; console.log("char");} // 1 byte
+            else if(/real/gim.test(linea)){ total = total + 8; console.log("real");} // 8 bytes
+            else if(/boolean/gim.test(linea)){ total = total + 1; console.log("boolean");} // 1 bytes
             else {
-                var contador = 0;
-                while ((memoria_fisica[i] != (nombres[contador]+";"))&(contador < 100)){ //La segunda condicion la puse por las dudas
-                    contador = contador+1;
-                    
+                if (/(.+)?begin/.test(linea) != true) {
+                    var contador = 0;
+                    let actual_exp = new RegExp(nombres[contador],"");
+                    console.log(actual_exp);
+                    while (((actual_exp.test(linea)) != true) &(contador < 100)){ //La segunda condicion la puse por las dudas
+                        
+                        contador = contador+1;
+                        actual_exp = new RegExp(nombres[contador],"");
+                        console.log(actual_exp);
+                    }
+                    console.log("total: "+total);
+                    total = total + valores[contador];
+                    console.log(nombres[contador]);
                 }
-                
-                total = total + valores[contador];
-                console.log(nombres[contador]);
             }
         }
         
