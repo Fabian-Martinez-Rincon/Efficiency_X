@@ -22,18 +22,25 @@ function convert( codigo) {
         var nombres = [];
         var valores = [];
         actual=array_actual [nombres,valores] = Calculo_Type(codigo); //Paso el texto y Calculo las memorias y tiempo
+        console.clear();
         nombres = actual[0];
         valores = actual[1];
         console.log('Arreglos: '+nombres);
         console.log('Arreglos: '+ valores);
-        mem_fisica = Calculo_Fisica(codigo,nombres,valores);
+        actual = Calculo_Fisica(codigo,nombres,valores);
+        nombres = actual[0];
+        valores = actual[1];
+        mem_fisica = actual[2];
+        console.log("Nombres: "+nombres);
+        console.log("Valores: "+valores);
+        console.log("Memoria Fisica: "+mem_fisica);
     }
     else {
         console.log('No hay type :(');
         mem_fisica = Calculo_Fisica2(codigo);
     }
     
-    /*if (/new|dispose/.test(codigo)) {
+    if (/new|dispose/.test(codigo)) {
         console.clear();
         console.log('Hay memoria dinamica');
         mem_dinamica = Calculo_Dinamica(codigo);
@@ -41,7 +48,7 @@ function convert( codigo) {
     else {
         console.log('No hay memoria dinamica');
         memoria_fisica = 0; 
-    }*/
+    }
 
 
     outputEl.innerText = 'Memorias estatica: ' + mem_fisica +" bytes"+ '\n Memoria dinamica: '+mem_dinamica+' bytes' + '\n Tiempo:';
@@ -247,6 +254,11 @@ function Calculo_Fisica(codigo,nombres,valores) {
     var memoria_fisica = codigo;
     var codigo2 = codigo;
     var total = 0;
+    var nombres2 = [];
+    var valores2 = [];
+    var nombre = "";
+    var valor = 0;
+    var array_actual = 0;
     var variables_completas = "[-^]?((integer|char|real|boolean|string";
     for (var i = 0; i < nombres.length;i++){
         variables_completas = variables_completas + "|" + (nombres[i]);
@@ -281,14 +293,14 @@ function Calculo_Fisica(codigo,nombres,valores) {
         codigo = codigo.replace(linea,'');
         
     }
-    console.log("memoria fisica:" + codigo);
-    
+    console.clear();
     while((/begin/.test(linea)) != true){//Una vez que tengo los datos filtrados, hago todas las operaciones
-        
+        nombre = "";
+        valor = 0;
         codigo2 = type.exec(codigo);
         linea=codigo2[0].toString();        
         codigo = codigo.replace(linea,'');
-        console.log("uwu"+linea);
+        console.log("Linea"+linea);
         punt.test(linea);//Esta linea no se porque va a aca, pero hace que funcione todo(no tocas :c)
         
         if(punt.test(linea)){ //Si es puntero sumo 4bytes que es para todos igual
@@ -296,30 +308,48 @@ function Calculo_Fisica(codigo,nombres,valores) {
             console.log("puntero");
         }
         else {
-            if(/integer/gim.test(linea)){ total = total + 6; console.log("integer");} // 6 bytes
-            else if(/char/gim.test(linea)){ total = total + 1; console.log("char");} // 1 byte
-            else if(/real/gim.test(linea)){ total = total + 8; console.log("real");} // 8 bytes
-            else if(/boolean/gim.test(linea)){ total = total + 1; console.log("boolean");} // 1 bytes
+            if(/integer/gim.test(linea)){ 
+                total = total + 6; console.log("integer"); 
+                nombres2.push(Separar_nombre_valor(linea));
+                valores2.push(6);
+            } // 6 bytes
+            else if(/char/gim.test(linea)){
+                 total = total + 1; console.log("char");
+                 nombres2.push(Separar_nombre_valor(linea));
+                 valores2.push(1);
+                } // 1 byte
+            else if(/real/gim.test(linea)){ 
+                total = total + 8; console.log("real");
+                nombres2.push(Separar_nombre_valor(linea));
+                valores2.push(8);
+            } // 8 bytes
+            else if(/boolean/gim.test(linea)){
+                 total = total + 1; console.log("boolean");
+                 nombres2.push(Separar_nombre_valor(linea));
+                 valores2.push(1);
+                } // 1 bytes
             else {
                 if (/(.+)?begin/.test(linea) != true) {
                     var contador = 0;
                     let actual_exp = new RegExp(nombres[contador],"");
-                    console.log(actual_exp);
                     while (((actual_exp.test(linea)) != true) &(contador < 100)){ //La segunda condicion la puse por las dudas
-                        
                         contador = contador+1;
-                        actual_exp = new RegExp(nombres[contador],"");
-                        console.log(actual_exp);
+                        actual_exp = new RegExp(nombres[contador],"");  
                     }
-                    console.log("total: "+total);
+                    nombres2.push(Separar_nombre_valor(nombres[contador]));
+                    valores2.push(valores[contador]);
                     total = total + valores[contador];
-                    console.log(nombres[contador]);
                 }
             }
         }
-        
+        console.log(total);
+        console.log(nombres2);
     }
-    return total;
+            /*actual=array_actual [nombre,valor] = calculo_String(linea);
+            nombres2.push(actual[0]);
+            valores2.push(actual[1]);  */
+    
+    return [nombres2,valores2,total];
 }
 
 //___________________________________________________________________________________________
@@ -351,7 +381,7 @@ function Calculo_Fisica2(codigo) {
     
 
     console.log( memoria_fisica);
-    
+    console.clear();
     for (var i = 0; i < memoria_fisica.length;i++){//Una vez que tengo los datos filtrados, hago todas las operaciones
         
         punt.test(memoria_fisica[0]);//Esta linea no se porque va a aca, pero hace que funcione todo(no tocas :c)
@@ -408,3 +438,12 @@ function Calculo_New(linea){
 }
 
 //___________________________________________________________________________________________
+
+function Separar_nombre_valor(codigo){
+    
+    var codigo2 = codigo;
+    const nombre = /(:(.+)?;)|(\s)?/g;
+    var variable = codigo2; //cadena35 = string[35];
+    variable = variable.replace(nombre,''); //cadena35 
+    return variable;
+}
