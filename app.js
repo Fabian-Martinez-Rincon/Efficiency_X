@@ -491,9 +491,17 @@ function calculo_Punteros_new(codigo,nombres,valores){
     var codigo2 = codigo;
     
     const nombre = /((.+)?[=](.+)[-^$])|\s(.+)?|;/g;
+    const nombre2 = /\w.+\b(.+)?[=]/g;
     var valor_n = 0;
     var variable = codigo2;
+    var variable2 = codigo2;
     variable = variable.replace(nombre,''); //nodo
+
+    variable2 = codigo2.match(nombre2); //cadena35 =
+    console.log("probando"+variable2);
+    variable2 = variable2.toString(); //cadena35 =
+    variable2 = variable2.replace(/\s|[=]/g,''); //cadena35
+
     var contador = 0;
     let actual_exp = new RegExp(nombres[contador],"");
 
@@ -502,5 +510,9 @@ function calculo_Punteros_new(codigo,nombres,valores){
         actual_exp = new RegExp(nombres[contador],"");  
     }
     valor_n = valor_n + valores[contador] ;
-    return [variable,valor_n];
+    return [variable2,valor_n];
 }
+
+const nombre = /\w.+\b(.+)?[=]/g;
+    
+    
