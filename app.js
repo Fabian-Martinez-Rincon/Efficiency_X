@@ -22,18 +22,11 @@ function convert( codigo) {
         var nombres = [];
         var valores = [];
         actual=array_actual [nombres,valores] = Calculo_Type(codigo); //Paso el texto y Calculo las memorias y tiempo
-        console.clear();
         nombres = actual[0];
         valores = actual[1];
         console.log('Arreglos: '+nombres);
         console.log('Arreglos: '+ valores);
         actual = Calculo_Fisica(codigo,nombres,valores);
-        nombres = actual[0];
-        valores = actual[1];
-        mem_fisica = actual[2];
-        console.log("Nombres: "+nombres);
-        console.log("Valores: "+valores);
-        console.log("Memoria Fisica: "+mem_fisica);
     }
     else {
         console.log('No hay type :(');
@@ -41,9 +34,16 @@ function convert( codigo) {
     }
     
     if (/new|dispose/.test(codigo)) {
-        console.clear();
+
         console.log('Hay memoria dinamica');
         mem_dinamica = Calculo_Dinamica(codigo);
+        actual=array_actual [nombres,valores] = Calculo_Type_New(codigo,nombres,valores); //Paso el texto y Calculo las memorias y tiempo
+        console.clear();
+        nombres = actual[0];
+        valores = actual[1];
+        console.log('Arreglos: '+nombres);
+        console.log('Arreglos: '+ valores);
+
     }
     else {
         console.log('No hay memoria dinamica');
@@ -99,9 +99,6 @@ function Calculo_Type(codigo){
             nombre_variables.push(actual[0]);
             valor_variables.push(actual[1]); 
         }     
-
-        
-
 
         console.log("nombres: "+ nombre_variables);
         console.log("valores: "+ valor_variables);
@@ -195,7 +192,7 @@ function calculo_Registro(linea,codigo,nombre_variables,valor_variables){
 
 
 //___________________________________________________________________________________________
-function calculo_Punteros(codigo,nombre_variables,valor_variables){
+function calculo_Punteros(codigo){
     var codigo2 = codigo;
     
     const nombre = /\w.+\b(.+)?[=]/g;
@@ -293,7 +290,6 @@ function Calculo_Fisica(codigo,nombres,valores) {
         codigo = codigo.replace(linea,'');
         
     }
-    console.clear();
     while((/begin/.test(linea)) != true){//Una vez que tengo los datos filtrados, hago todas las operaciones
         nombre = "";
         valor = 0;
@@ -381,7 +377,6 @@ function Calculo_Fisica2(codigo) {
     
 
     console.log( memoria_fisica);
-    console.clear();
     for (var i = 0; i < memoria_fisica.length;i++){//Una vez que tengo los datos filtrados, hago todas las operaciones
         
         punt.test(memoria_fisica[0]);//Esta linea no se porque va a aca, pero hace que funcione todo(no tocas :c)
@@ -446,4 +441,66 @@ function Separar_nombre_valor(codigo){
     var variable = codigo2; //cadena35 = string[35];
     variable = variable.replace(nombre,''); //cadena35 
     return variable;
+} 
+//___________________________________________________________________________________________
+function Calculo_Type_New(codigo,nombres,valores){
+    var codigo2 = codigo;
+    var linea = "";
+    contador = 0;
+    const type = /(((.+)?[=](.+)?)(string).+;)|(((.+)?[=](.+)?)(record))|(((.+)?[=](.+)?)([-^](.+;)))|(((.+)?[=](.+)?)(array).+;)|(((.+)?[=](.+)?).+;)|var|procedure|function/;
+    var nombre_variables = [] ; //Arreglo con todos los nombre
+    var valor_variables = [] ; //Arreglo con todas las variables
+    const array_actual = 0;
+    var actual = 0;
+    var nombre = "";
+    var valor=0;
+
+
+    while (linea != ("var")|("procedure")|("function")) {
+        nombre = "";
+        valor=0;
+        actual = 0;
+
+        codigo2 = type.exec(codigo);
+        linea=codigo2[0].toString();
+        console.log("Analizar: "+linea);
+
+        
+        if (/[-^]/.test(linea)){
+            actual=array_actual [nombre,valor] = calculo_Punteros_new(linea,nombres,valores);
+            nombre_variables.push(actual[0]);
+            valor_variables.push(actual[1]); 
+        }     
+
+        console.log("nombres: "+ nombre_variables);
+        console.log("valores: "+ valor_variables);
+        
+        
+        codigo = codigo.replace(linea,'');
+        
+        console.log(contador);
+        contador = contador + 1;
+    }
+    
+
+    return [nombre_variables,valor_variables];
+}
+
+//___________________________________________________________________________________________
+function calculo_Punteros_new(codigo,nombres,valores){
+    var codigo2 = codigo;
+    
+    const nombre = /((.+)?[=](.+)[-^$])|\s(.+)?|;/g;
+    var valor_n = 0;
+    var variable = codigo2;
+    variable = variable.replace(nombre,''); //nodo
+    var contador = 0;
+    let actual_exp = new RegExp(nombres[contador],"");
+
+    while (((actual_exp.test(variable)) != true) &(contador < 100)){ //La segunda condicion la puse por las dudas
+        contador = contador+1;
+        actual_exp = new RegExp(nombres[contador],"");  
+    }
+    valor_n = valor_n + valores[contador] ;
+    return [variable,valor_n];
 }
