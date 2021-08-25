@@ -169,6 +169,39 @@ end.
 ![image](https://user-images.githubusercontent.com/55964635/130385863-a6361ab6-02de-44b8-9eae-4c57c9b6652d.png)
 
 
+## Empezamos memoria dinamica
+
+```Pas
+program Problema;
+type
+  cadena35 = string[35];
+  empleado = record
+    dirCorreo: cadena35;
+    edad: integer;
+    sueldo:real;
+  end;
+  
+  punt = ^empleado;
+  vector = array [1..500] of punt;
+  
+  lista = ^nodo;
+  nodo = record
+    dato: empleado;
+    sig: lista;
+  end;
+  
+var
+  v:vector;
+  aux:lista;
+  emp:empleado;
+  i:integer;
+begin
+   new(aux); 
+end.
+  
+```
+
+
 ### Eliminamos todos los espacios para trabajar de forma mas facil
 
 [Website](https://fabian-martinez1.github.io/Efficiency_X/)
