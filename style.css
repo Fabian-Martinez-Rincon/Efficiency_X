@@ -51,6 +51,17 @@
     color: whitesmoke;
     border-radius: 10px;
     border: 5px solid hsl(207, 86%, 19%);
+    
+  
+
+
+  }
+  .output{
+    font-family: poppins;
+    font-size: 22px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: white;
   }
   button {
     outline: none;
@@ -63,6 +74,23 @@
     font-family: "montserrat";
     margin: 20px 0;
     cursor: pointer;
+    border-radius: 10px;
+    border: 5px solid hsl(207, 86%, 19%);
+
+
+
+    font-family: poppins;
+    font-size: 30px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  ::placeholder{
+    font-family: poppins;
+    font-size: 22px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: white;
+    opacity: 35%;
   }
   .copy {
     position: absolute;
@@ -168,7 +196,7 @@ h2{
 @media (max-width: 1440px) and (orientation: landscape)/*Baja resolucion______________________*/
 {
   h2{
-    top: 8%;
+    top: 6%;
 }
 
 }
