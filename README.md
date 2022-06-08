@@ -1,5 +1,9 @@
 <h1 align="center"> 💻Efficiency_X </h1>
 
+![image](https://user-images.githubusercontent.com/55964635/172654704-462d38c9-37f4-4b7f-9729-803ec1324e72.png)
+
+
+
 <div align="center">
 <img src="Img/2.png"/>
  </div>
